@@ -5,9 +5,6 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import app from '../../Firebase/firebase.init';
 import login from "../../assests/login1.png"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
-
 const auth = getAuth(app)
 
 const Login = () => {
@@ -53,7 +50,6 @@ const Login = () => {
             <div className='d-flex justify-content-center align-items-center mx-5'>
             <div className='w-50 me-5'>
                 <img className='img-fluid' src={login} alt="" />
-                <FontAwesomeIcon icon={faBagShopping} />
             </div>
             <div className='p-5 rounded me-5 shadow-lg'>
                 <h2 className='mb-3 text-primary text-shadow'>Login</h2>

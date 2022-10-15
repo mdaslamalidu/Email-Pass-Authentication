@@ -10,51 +10,46 @@ import "./Register.css";
 const auth = getAuth(app)
 
 const Register = () => {
-    const [passwordError, setPasswordError] = useState('');
+    const [error, SetError] = useState('');
     const [success, setSuccess] = useState(false);
 
     const handleSubmit = event => {
         event.preventDefault();
         setSuccess(false)
         const form = event.target;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
 
+        if(!/\S+@\S+\.\S+/.test(email)){
+            SetError("Please give a valid Email")
+            return;
+        }
 
         if(!/(?=.*[A-Z].*[A-Z])/.test(password)){
-            setPasswordError("Please Provide at least two uppercase")
+            SetError("Please Provide at least two uppercase")
             return;
         }
         if(password.length < 6){
-            setPasswordError("Please Provide at least 6 character")
+            SetError("Please Provide at least 6 character")
             return;
         }
         if (!/(?=.*[!@#$&*])/.test(password)){
-            setPasswordError("Please Provide at least one special character")
+            SetError("Please Provide at least one special character")
             return;
         }
 
-        setPasswordError("");
+        SetError("");
 
         createUserWithEmailAndPassword(auth, email, password)
         .then(result => {
             const user = result.user;
             console.log(user)
-            setSuccess(true)
-            form.reset()
-            varefyEmail()
         })
         .catch(error => {
-            console.error("error", error)
-            setPasswordError(error.message)
+            SetError(error.message)
         })
-    }
 
-    const varefyEmail = () => {
-        sendEmailVerification(auth.currentUser)
-        .then(() => {
-            alert("check your email and varefy your email address")
-        })
     }
 
     return (
@@ -81,7 +76,7 @@ const Register = () => {
 
                     <p><input type="checkbox"/> Terms & Conditions</p>
 
-                    <p className='text-danger'>{passwordError}</p>
+                    <p className='text-danger'>{error}</p>
                     {success && <p className='text-success'>user created successfully</p>}
                     <Button className='w-100' variant="primary" type="submit">
                         Registration
