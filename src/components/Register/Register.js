@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {createUserWithEmailAndPassword, getAuth, sendEmailVerification} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile} from 'firebase/auth'
 import app from '../../Firebase/firebase.init';
 import { Link } from 'react-router-dom';
 import register from "../../assests/register.png";
@@ -12,6 +12,7 @@ const auth = getAuth(app)
 const Register = () => {
     const [error, SetError] = useState('');
     const [success, setSuccess] = useState(false);
+    const [isDesabled, setIsdesabled] = useState(true);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -44,12 +45,32 @@ const Register = () => {
         createUserWithEmailAndPassword(auth, email, password)
         .then(result => {
             const user = result.user;
+            updateName(name)
+            verify();
             console.log(user)
         })
         .catch(error => {
             SetError(error.message)
         })
 
+    }
+
+
+    const updateName = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        }).then(() => {
+            alert("you name has updated")
+        }).catch((error) => {
+            SetError(error)
+        });
+    }
+
+    const verify = () => {
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+            alert("verify your email send email verification. check your email!!")
+        })
     }
 
     return (
@@ -74,11 +95,11 @@ const Register = () => {
                         <Form.Control type="password" name="password" placeholder="Password" required />
                     </Form.Group>
 
-                    <p><input type="checkbox"/> Terms & Conditions</p>
+                    <p><input onClick={() => setIsdesabled(!isDesabled)} type="checkbox"/> Terms & Conditions</p>
 
                     <p className='text-danger'>{error}</p>
                     {success && <p className='text-success'>user created successfully</p>}
-                    <Button className='w-100' variant="primary" type="submit">
+                    <Button className='w-100' variant="primary" type="submit" disabled={isDesabled}> 
                         Registration
                     </Button>
                     <p>Already have an account <Link to="/login">Log in</Link></p>
