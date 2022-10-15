@@ -5,15 +5,16 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import app from '../../Firebase/firebase.init';
 import login from "../../assests/login1.png"
+import Swal from 'sweetalert2'
+
+
 const auth = getAuth(app)
 
 const Login = () => {
-    const [success, setSuccess] = useState(false);
     const [resetEmail, setResetEmail] = useState("");
 
     const handleSubmit = event => {
         event.preventDefault();
-        setSuccess(false)
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -21,7 +22,11 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user)
-            setSuccess(true)
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+            )
         })
         .catch(error => {
             console.error("error", error)
@@ -67,7 +72,6 @@ const Login = () => {
                     <Button className='py-1 w-100' variant="primary" type="submit">
                         Log In
                     </Button>
-                    {success && <p className='text-success'>Successfully Login!!!!!</p>}
                     <p>new To the website!! Please <Link to="/register">Register</Link></p>
                 </Form>
 
