@@ -48,27 +48,27 @@ const LoginBootsrap = () => {
     }
 
     return (
-            <div className='d-flex justify-content-center align-items-center'>
-            <div className='w-50'>
-                <img className='w-100' src={login} alt="" />
+            <div className='d-flex justify-content-center align-items-center mx-5'>
+            <div className='w-75'>
+                <img className='w-75' src={login} alt="" />
             </div>
-            <div className='w-50'>
+            <div className='w-25 p-5 bg-black text-white rounded text-center me-5 shadow-lg'>
+                <h2 className='mb-3 text-primary'>Login Form</h2>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
                         <Form.Control onBlur={handleEmailBlur} type="email" name="email" placeholder="Enter email" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" placeholder="Password" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <p>Forget password <button onClick={handleForgetPassword} className='btn text-primary btn-link ms-0'>reset</button> </p>
+                    <Button className='py-1 px-4' variant="primary" type="submit">
+                        Log In
                     </Button>
                     {success && <p className='text-success'>Successfully Login!!!!!</p>}
                     <p>new To the website!! Please <Link to="/register">Register</Link></p>
-                    <p>Forget password <button onClick={handleForgetPassword} className='btn text-primary btn-underline'>reset</button> </p>
+                   
                 </Form>
             </div>
             </div>
