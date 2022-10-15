@@ -5,10 +5,12 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import app from '../../Firebase/firebase.init';
 import login from "../../assests/login1.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 
 const auth = getAuth(app)
 
-const LoginBootsrap = () => {
+const Login = () => {
     const [success, setSuccess] = useState(false);
     const [resetEmail, setResetEmail] = useState("");
 
@@ -49,30 +51,35 @@ const LoginBootsrap = () => {
 
     return (
             <div className='d-flex justify-content-center align-items-center mx-5'>
-            <div className='w-75'>
-                <img className='w-75' src={login} alt="" />
+            <div className='w-50 me-5'>
+                <img className='img-fluid' src={login} alt="" />
+                <FontAwesomeIcon icon={faBagShopping} />
             </div>
-            <div className='w-25 p-5 bg-black text-white rounded text-center me-5 shadow-lg'>
-                <h2 className='mb-3 text-primary'>Login Form</h2>
+            <div className='p-5 rounded me-5 shadow-lg'>
+                <h2 className='mb-3 text-primary text-shadow'>Login</h2>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address:</Form.Label>
                         <Form.Control onBlur={handleEmailBlur} type="email" name="email" placeholder="Enter email" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password:</Form.Label>
                         <Form.Control type="password" name="password" placeholder="Password" />
                     </Form.Group>
-                    <p>Forget password <button onClick={handleForgetPassword} className='btn text-primary btn-link ms-0'>reset</button> </p>
-                    <Button className='py-1 px-4' variant="primary" type="submit">
+                    <button onClick={handleForgetPassword} className='btn text-primary btn-link p-0'>Forget password? </button>
+                    <Button className='py-1 w-100' variant="primary" type="submit">
                         Log In
                     </Button>
                     {success && <p className='text-success'>Successfully Login!!!!!</p>}
                     <p>new To the website!! Please <Link to="/register">Register</Link></p>
-                   
                 </Form>
+
+                
             </div>
             </div>
     );
 };
 
-export default LoginBootsrap;
+export default Login;
+

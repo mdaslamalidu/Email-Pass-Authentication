@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import Main from './Layout/Main';
-import BootstrapReat from './components/BootstrapReat';
-import LoginBootsrap from './components/LoginBootsrap/LoginBootsrap';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from './components/LoginBootsrap/Login';
+import Register from './components/Register/Register';
 
 const router = createBrowserRouter([
   {
@@ -12,15 +12,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <BootstrapReat/>
+        element: <Login/>
       },
       {
         path: "/register",
-        element: <BootstrapReat/>
+        element: <Register/>
       },
       {
         path: "/login",
-        element: <LoginBootsrap/>
+        element: <Login/>
       }
     ]
   }
